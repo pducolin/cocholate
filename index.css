@@ -1,0 +1,19 @@
+/* colors
+brown: #844D36
+default-foreground: #474853
+light-blue: #86b3d1
+default-background: #AAA0A0
+gold: #8e8268
+*/
+
+body {
+    margin: 0px;
+    background: #AAA0A0;
+    height: 100vh; 
+    color: #474853;
+    font-family: Roboto,Helvetica,Arial,sans-serif;
+    margin: 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow-x: hidden;
+}
