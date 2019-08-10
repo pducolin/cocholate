@@ -21,7 +21,8 @@
     "jsx": "preserve"
   },
   "include": [
-    "."
+    ".",
+    ["./declarations.d.ts"]
   ],
   "exclude": [
     "node_modules",

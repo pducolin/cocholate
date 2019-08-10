@@ -1,27 +1,34 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './App.css';
-import { RecipeBook, Recipe } from './Recipes/RecipeBook';
-import { RecipeBookView} from './Recipes/RecipeBookView'
-import { generateId } from './utils/id'
+import { createDemoRecipeBook } from './data/RecipeBookDemo';
+import { LeftBarNavigation } from './components/LeftBarNavigation';
+import { ObservableNavigationItems } from './components/NavigationItems';
+import { RecipeIcon, FlourIcon } from './icons/Icons';
+import { RecipeBookView } from './Recipes/RecipeBookView';
 
 const App: React.FC = () => {
-  const recipeBook = new RecipeBook()
-  recipeBook.name = 'Test Recipe Book'
-  recipeBook.addRecipe(Object.assign(new Recipe(), {
-    id: generateId('R'),
-    name: 'Recipe 1',
-    author: 'Test Author'
-  }))
-  recipeBook.addRecipe(Object.assign(new Recipe(), {
-    id: generateId('R'),
-    name: 'Recipe 2',
-    author: 'Test Author 2'
-  }))
+  const recipeBook = createDemoRecipeBook()
+  let menuItems = new ObservableNavigationItems()
+  menuItems.items =
+  [
+    {
+      title: 'Ricette',
+      isSelected: true,
+      icon: <RecipeIcon />
+    },{
+      title: 'Ingredienti',
+      isSelected: false,
+      icon: <FlourIcon />
+    },
+  ]
 
   return (
     <div className="App">
-      <RecipeBookView recipeBook={recipeBook}/>
+      <LeftBarNavigation observableItems={menuItems}/>
+      <div className="App-centre">
+        <RecipeBookView recipeBook={recipeBook}/>
+      </div>
     </div>
   );
 }

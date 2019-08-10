@@ -1,0 +1,40 @@
+.root {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 150px;
+    height: 100%;
+    margin-right: 20px;
+}
+
+.navitem-root {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: flex-end;
+    margin:4px;
+    cursor: default;
+}
+
+.navitem-icon {
+    margin-right: 5px;
+}
+
+.navitem-title {
+    font-size: 20px;
+    color: gray;
+    -webkit-transition: all 400ms;
+    -moz-transition: all 400ms;
+    -o-transition: all 400ms;
+    transition: all 400ms;
+}
+
+.navitem-title-selected {
+    font-size: 24px;
+    color: black;
+    -webkit-transition: all 400ms;
+    -moz-transition: all 400ms;
+    -o-transition: all 400ms;
+    transition: all 400ms;
+}

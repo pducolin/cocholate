@@ -3,6 +3,12 @@ import {observer} from 'mobx-react';
 import { RecipeBook, Recipe } from './RecipeBook'
 import './RecipeBook.css'
 import { generateId } from '../utils/id';
+import { RecipeItem } from './RecipeItem'
+import { RecipeView } from './RecipeView';
+import { LeftBarNavigation } from '../components/LeftBarNavigation';
+import { ObservableNavigationItems } from '../components/NavigationItems';
+import { throwStatement } from '@babel/types';
+import { FlourIcon, RecipeIcon } from '../icons/Icons';
 
 interface RecipeBookProps {
   recipeBook: RecipeBook
@@ -10,68 +16,50 @@ interface RecipeBookProps {
 
 @observer
 export class RecipeBookView extends React.Component<RecipeBookProps> {
+  
   constructor(props: RecipeBookProps) {
     super(props)
     this.addRecipe = this.addRecipe.bind(this)
+    this.onItemClicked = this.onItemClicked.bind(this)
   }
 
-    addRecipe() {
-      this.props.recipeBook.addRecipe(Object.assign(new Recipe(), {
-        id: generateId('R'),
-        name: 'Recipe 1',
-        author: 'Test Author'
-      }))
-    }
+  addRecipe() {
+    this.props.recipeBook.addRecipe(Object.assign(new Recipe(), {
+      id: generateId('R'),
+      name: 'Recipe 1',
+      author: 'Test Author'
+    }))
+  }
+
+  onItemClicked(recipeId: string) {
+    this.props.recipeBook.selectRecipe(recipeId)
+  }
 
   render() {
     const recipeBook = this.props.recipeBook;
+
     return (
-        <div className='recipebook-root'>
-        <button className='recipebook-button' onClick={this.addRecipe}>Add Recipe</button>
-        {
-          recipeBook &&
-          <div className='recipebook-title'>{recipeBook.name}</div>
-        }
-        {
-          <div className='recipebook-recipes'>
-            {
-              recipeBook.recipes.map((recipe) => (
-                <RecipeItem key={recipe.id} recipe={recipe}/>
-              ))
-            }
-          </div>
-        }
+      <div className='recipebook-root'>
+          {
+            recipeBook &&
+            <div className='recipebook-title'>{recipeBook.name}</div>
+          }
+          {
+            <div className='recipebook-recipes'>
+              {
+                recipeBook.recipes.map((recipe) => (
+                  <RecipeItem key={recipe.id} 
+                              recipe={recipe}
+                              onItemClicked={this.onItemClicked}/>
+                ))
+              }
+            </div>
+          }
+          {
+            recipeBook.selectedRecipe && 
+            <RecipeView recipe={recipeBook.selectedRecipe}/>
+          }
         </div>
       );
-    }
-  }
-
-  interface RecipeItemProps {
-    recipe: Recipe
-  }
-
-  @observer
-  class RecipeItem extends React.Component<RecipeItemProps> {
-    constructor(props: RecipeItemProps) {
-      super(props)
-      this.handleItemClick = this.handleItemClick.bind(this)
-    }
-
-    handleItemClick() {
-      console.log(this.props.recipe.name + ' clicked')
-    }
-
-    render() {
-      const recipe = this.props.recipe
-      return (
-        <div className='recipebook-recipe' onClick={this.handleItemClick}>
-          <div className='recipebook-recipe-name'>
-            {recipe.name}
-          </div>
-          <div className='recipebook-recipe-author'>
-            Author: {recipe.author}
-          </div>
-        </div>
-      )
     }
   }

@@ -1,0 +1,36 @@
+.recipeitem-main {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    background-color: white;
+    border: solid;
+    border-color: #8e8268;
+    border-width: 2px;
+    margin: 20px;
+    padding: 15px 20px;
+}
+
+.recipeitem-details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 10px;
+}
+
+.recipeitem-name {
+    text-align: left;
+    font-size: 18px;
+    color: #AAA0A0;
+}
+
+.recipeitem-author {
+    text-align: left;
+    font-size: 14px;
+    color: #AAA0A0;
+}
+
+.recipeitem-icon {
+    width: 40px;
+    height: 40px;
+}

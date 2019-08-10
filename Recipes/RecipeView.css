@@ -1,0 +1,23 @@
+.recipeview-root {
+    display: flex;
+    flex-direction: column;
+}
+
+.recipeview-name {
+    font-size: 30px;
+    text-align: center;
+}
+
+.recipeview-author {
+    font-size: 20px;
+    text-align: left;
+    color: gray;
+    margin: 10px 0px;
+}
+
+.recipeview-ingredients-title {
+    font-size: 20px;
+    text-align: center;
+    color: black;
+    margin-bottom: 10px;
+}
