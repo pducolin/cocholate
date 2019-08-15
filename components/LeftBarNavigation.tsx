@@ -63,8 +63,10 @@ class NavigationItemView extends React.Component<NavigationItemViewProps> {
         return (
             <a className={`navitem-root${suffix}`} onClick={this.onClick}>
                 {
-                    navItem.icon && 
-                    <div className="navitem-icon">{navItem.icon}</div>
+                    navItem.iconSvgPath && 
+                    <div className="navitem-icon">
+                        {navItem.iconSvgPath}
+                    </div>
                 }
                 <div className={`navitem-title`}>
                     {navItem.title}

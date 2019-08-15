@@ -19,22 +19,32 @@ a {
 
 .navitem-icon {
     margin-right: 10px;
+    fill: gray;
+    width: 30px;
+    height: 30px;
 }
 
-a .navitem-title {
+.navitem-title {
     font-size: 20px;
     color: gray;
+}
+
+.navitem-icon, .navitem-title {
     -webkit-transition: all 400ms;
     -moz-transition: all 400ms;
     -o-transition: all 400ms;
     transition: all 400ms;
 }
 
-a:hover .navitem-title , .navitem-root-selected  .navitem-title {
+a:hover .navitem-title , 
+.navitem-root-selected  .navitem-title {
     font-size: 24px;
     color: black;
-    -webkit-transition: all 400ms;
-    -moz-transition: all 400ms;
-    -o-transition: all 400ms;
-    transition: all 400ms;
+}
+
+a:hover .navitem-icon,
+.navitem-root-selected .navitem-icon {
+    fill: black;
+    width: 40px;
+    height: 40px;
 }
