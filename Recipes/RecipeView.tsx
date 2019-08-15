@@ -1,36 +1,71 @@
 import { observer } from "mobx-react";
 import { Recipe } from "./RecipeBook";
 import React from "react";
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 import './RecipeView.css'
-import { RecipeIngredientItem } from "./RecipeIngredentItem";
+import { Tabs, Tab, withStyles, createStyles, Theme } from "@material-ui/core";
+import { RecipeIngredientList } from "./RecipeIngredientList";
+import { RecipeIngredientDetails } from "./RecipeIngredientDetails";
 
   interface RecipeViewProps {
     recipe: Recipe
   }
 
+  interface StyledTabProps {
+    label: string;
+  }
+  
+  const AntTabs = withStyles({
+    root: {
+        borderBottom: '1px solid black'
+    },
+    indicator: {
+      backgroundColor: 'black',
+    },
+  })(Tabs);
+  
+  const AntTab = withStyles((theme: Theme) =>
+    createStyles({
+      root: {
+        textTransform: 'uppercase',
+        minWidth: 50,
+        fontWeight: theme.typography.fontWeightRegular,
+        marginRight: theme.spacing(4),
+        fontFamily: [
+          'Roboto',
+          '"Helvetica Neue"',
+          'Arial',
+          'sans-serif',
+          '"Apple Color Emoji"',
+          '"Segoe UI Emoji"',
+          '"Segoe UI Symbol"',
+        ].join(','),
+        '&:hover': {
+          color: 'black',
+          opacity: 1,
+        },
+        '&$selected': {
+          color: 'black',
+          fontWeight: theme.typography.fontWeightMedium,
+        },
+        '&:focus': {
+          color: 'black',
+        },
+      },
+      selected: {},
+    }),
+  )((props: StyledTabProps) => {
+      return <Tab disableRipple {...props} />;
+  });
+
   @observer 
   export class RecipeView extends React.Component<RecipeViewProps> {
     constructor(props: RecipeViewProps) {
       super(props)
-      this.handleScaleChanged = this.handleScaleChanged.bind(this)
+      this.handleTabChange = this.handleTabChange.bind(this)
     }
 
-    handleScaleChanged(ingredientId: string, event: React.ChangeEvent<HTMLInputElement>) {
-        const recipe = this.props.recipe
-        const value = parseInt(event.target.value)
-        console.log('value changed to ' + value)
-        if (!value) {
-            recipe.updateScale(ingredientId, 0)
-        }
-        else {
-            recipe.updateScale(ingredientId, value)
-        }
+    handleTabChange(value: number) {
+        this.props.recipe.selectedTab = value
     }
 
     render() {
@@ -41,39 +76,35 @@ import { RecipeIngredientItem } from "./RecipeIngredentItem";
             {recipe.name}
           </div>
           <div className='recipeview-author'>
-            Author: {recipe.author}
+            Autore: {recipe.author}
           </div>
+          {
+            <AntTabs className="recipeview-menu"
+                    value={recipe.selectedTab}
+                    onChange={(_, v) => this.handleTabChange(v)}
+                    indicatorColor="primary"
+                    textColor="primary"
+                    centered>
+                    {
+                        recipe.tabs.map((tab) => (
+                            <AntTab key={tab} label={tab}/>
+                        ))
+                    }
+            </AntTabs>  
+          }
           <div className='recipeview-ingredients-title'>
-            Ingredients
+            {recipe.tabs[recipe.selectedTab]}
           </div>
-            <Paper className='paper'>
-            <Table className='table'>
-                <TableHead>
-                <TableRow>
-                    <TableCell>Name</TableCell>
-                    <TableCell align="right">Quantity (g)</TableCell>
-                    <TableCell align="right">Quantity (%)</TableCell>
-                    <TableCell align="right">Scala (g)</TableCell>
-                </TableRow>
-                </TableHead>
-                <TableBody>
-                {recipe.ingredients.map(ingredient => (
-                    <TableRow key={ingredient.id}>
-                        <TableCell component="th" scope="row">
-                            {ingredient.name}
-                        </TableCell>
-                        <TableCell align="right">{ingredient.quantity}</TableCell>
-                        <TableCell align="right">{(ingredient.relativeRate*100).toFixed(1)}</TableCell>
-                        <TableCell align="right">
-                            <input type='text' 
-                                    value={ingredient.scaledQuantity}
-                                    onChange={(e) => this.handleScaleChanged(ingredient.id, e)}/>
-                        </TableCell>
-                    </TableRow>
-                ))}
-                </TableBody>
-            </Table>
-            </Paper>
+          <div id='recipeview-container'>
+            {
+                recipe.selectedTab === 0 &&
+                <RecipeIngredientList recipe={recipe}/>  
+            }
+            {
+                recipe.selectedTab === 1 &&
+                <RecipeIngredientDetails recipe={recipe}/>  
+            }
+          </div>
         </div>
       )
     }

@@ -1,27 +1,27 @@
-.root {
+.navigation-root {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    width: 150px;
     height: 100%;
     margin-right: 20px;
+    border-width: 0;
 }
 
-.navitem-root {
+a {
     display: flex;
     flex-direction: row;
     justify-content: left;
-    align-items: flex-end;
+    align-items: center;
     margin:4px;
     cursor: default;
 }
 
 .navitem-icon {
-    margin-right: 5px;
+    margin-right: 10px;
 }
 
-.navitem-title {
+a .navitem-title {
     font-size: 20px;
     color: gray;
     -webkit-transition: all 400ms;
@@ -30,7 +30,7 @@
     transition: all 400ms;
 }
 
-.navitem-title-selected {
+a:hover .navitem-title , .navitem-root-selected  .navitem-title {
     font-size: 24px;
     color: black;
     -webkit-transition: all 400ms;

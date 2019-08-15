@@ -28,7 +28,7 @@ export class LeftBarNavigation extends React.Component<LeftBarNavigationProps> {
     render() {
         const items = this.props.observableItems.items
         return (
-            <div className='root'>
+            <div className='navigation-root'>
                 {
                     items.map((item) => (
                         <NavigationItemView key={item.title} 
@@ -59,20 +59,17 @@ class NavigationItemView extends React.Component<NavigationItemViewProps> {
 
     render () {
         const navItem = this.props.navItem
-        let classNameSuffix = ''
-        if (navItem.isSelected) {
-            classNameSuffix += '-selected'
-        }
+        const suffix = navItem.isSelected ? '-selected' : ''
         return (
-            <div className={`navitem-root`} onClick={this.onClick}>
+            <a className={`navitem-root${suffix}`} onClick={this.onClick}>
                 {
                     navItem.icon && 
-                    <div>{navItem.icon}</div>
+                    <div className="navitem-icon">{navItem.icon}</div>
                 }
-                <div className={`navitem-title${classNameSuffix}`}>
+                <div className={`navitem-title`}>
                     {navItem.title}
                 </div>
-            </div>
+            </a>
         )
     }
 }

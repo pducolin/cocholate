@@ -18,7 +18,7 @@ import './RecipeIngredientItem.css'
       return (
         <div className='recipeingredientitem-column' >
           <div className='recipeingredientitem-name'>
-            {recipeIngredient.ingredient.name}
+            {recipeIngredient.name}
           </div>
           <div className='recipeingredient-detail'>
             Quantity: {recipeIngredient.quantity} g
@@ -30,10 +30,10 @@ import './RecipeIngredientItem.css'
             </div>
           }
           <div className='recipeingredient-detail'>
-            Saccarose: {recipeIngredient.ingredient.saccarose} %
+            Saccarose: {recipeIngredient.saccarose} %
           </div>
           <div className='recipeingredient-detail'>
-            Butter: {recipeIngredient.ingredient.butter} %
+            Butter: {recipeIngredient.butter} %
           </div>
         </div>
       )

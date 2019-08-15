@@ -25,10 +25,12 @@ const App: React.FC = () => {
 
   return (
     <div className="App">
-      <LeftBarNavigation observableItems={menuItems}/>
-      <div className="App-centre">
-        <RecipeBookView recipeBook={recipeBook}/>
+      <div className="App-leftMenu">
+        <LeftBarNavigation observableItems={menuItems}/>
       </div>
+      <main className="App-content">
+        <RecipeBookView recipeBook={recipeBook}/>
+      </main>
     </div>
   );
 }

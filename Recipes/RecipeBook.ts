@@ -32,6 +32,8 @@ export class Recipe {
     @observable indexedIngredients: IndexedRecipeIngredient = {}
     @observable author: string = ''
     @observable imagePath?: string
+    @observable tabs: string[] = ['Ingredient List', 'Details']
+    @observable selectedTab: number = 0
 
     addIngredient(ingredient: Ingredient, quantity: number) {
         this.indexedIngredients[ingredient.id] = Object.assign(ingredient, {
@@ -61,7 +63,13 @@ export class Recipe {
 
         const changedIngredient = this.indexedIngredients[ingredientId]
         this.ingredients.map((ingredient) => {
-            ingredient.scaledQuantity = Math.round(ingredient.relativeRate * scaledQuantity / changedIngredient.relativeRate)
+            ingredient.scaledQuantity = ingredient.relativeRate * scaledQuantity / changedIngredient.relativeRate
+        })
+    }
+
+    updateTotalScale(scaledTotal: number) {
+        this.ingredients.map((ingredient) => {
+            ingredient.scaledQuantity = ingredient.relativeRate * scaledTotal
         })
     }
 
@@ -92,6 +100,55 @@ export class Recipe {
 
     @computed get ingredients() : RecipeIngredient[] {
         return Object.values(this.indexedIngredients)
+    }
+
+    @computed get totalScaledQuantity() : number {
+        return this.ingredients.reduce((totalScaledQuantity: number, ingredient: RecipeIngredient) => {
+            totalScaledQuantity += ingredient.scaledQuantity
+            return totalScaledQuantity
+        }, 0)
+    }
+
+    @computed get totalSaccarose() : number {
+        return this.ingredients.reduce((tot: number, ingredient: RecipeIngredient) => {
+            tot += ingredient.saccarose * ingredient.relativeRate
+            return tot
+        }, 0)
+    }
+
+    @computed get totalOil() : number {
+        return this.ingredients.reduce((tot: number, ingredient: RecipeIngredient) => {
+            tot += ingredient.oil * ingredient.relativeRate
+            return tot
+        }, 0)
+    }
+
+    @computed get totalButter() : number {
+        return this.ingredients.reduce((tot: number, ingredient: RecipeIngredient) => {
+            tot += ingredient.butter * ingredient.relativeRate
+            return tot
+        }, 0)
+    }
+
+    @computed get totalCocoaButter() : number {
+        return this.ingredients.reduce((tot: number, ingredient: RecipeIngredient) => {
+            tot += ingredient.cocoaButter * ingredient.relativeRate
+            return tot
+        }, 0)
+    }
+
+    @computed get totalCocoaSolid() : number {
+        return this.ingredients.reduce((tot: number, ingredient: RecipeIngredient) => {
+            tot += ingredient.cocoaSolids * ingredient.relativeRate
+            return tot
+        }, 0)
+    }
+
+    @computed get totalLPMD() : number {
+        return this.ingredients.reduce((tot: number, ingredient: RecipeIngredient) => {
+            tot += ingredient.lmpd * ingredient.relativeRate
+            return tot
+        }, 0)
     }
 }
 

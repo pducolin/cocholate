@@ -1,6 +1,8 @@
 .recipeview-root {
     display: flex;
     flex-direction: column;
+    width: 100%;
+    overflow: hidden;
 }
 
 .recipeview-name {
@@ -9,8 +11,8 @@
 }
 
 .recipeview-author {
-    font-size: 20px;
-    text-align: left;
+    font-size: 18px;
+    text-align: center;
     color: gray;
     margin: 10px 0px;
 }
@@ -19,5 +21,57 @@
     font-size: 20px;
     text-align: center;
     color: black;
-    margin-bottom: 10px;
+    margin: 30px 0px;
+}
+
+#recipeview-container {
+    padding: 10px;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+}
+
+.recipeview-table {
+    -webkit-box-shadow: 0 10px 6px -6px #777;
+    -moz-box-shadow: 0 10px 6px -6px #777;
+    box-shadow: 0 10px 6px -6px #777;
+    border: 1px solid lightgray;
+    font-size: 14px;
+}
+
+.recipeview-table thead th {
+    text-align: right;
+    color: #777;
+    font-weight: normal;
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+}
+.recipeview-table thead .row-name{
+    text-align: left;
+}
+ 
+.recipeview-table th, .recipeview-table td {
+    border-collapse: collapse;
+    padding: .75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}
+
+.recipeview-table td {
+    text-align: right;
+}
+
+.recipeview-table .row-name {
+    text-align: left;
+}
+
+.recipeview-table .footer .row-name {
+    font-weight: bold;
+}
+
+.table-container {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
